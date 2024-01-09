@@ -1,0 +1,12 @@
+{
+  "name": "parliament-chart",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Creates a blueprint for a parliament chart visualisation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "edwgargan@gmail.com",
+  "license": "ISC"
+}
