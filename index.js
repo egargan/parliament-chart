@@ -3,11 +3,14 @@
 
 /**
  * @param {number} scale
- * @param {{ label: string, numSeats: number }[]} groups
+ * @param Record<string, number> groups
  * @returns {{ groups: GroupSeats[], radius: number }}
  */
 export default function createChart(scale, groups) {
-  const totalSeats = groups.reduce((sum, group) => sum + group.numSeats, 0);
+  const totalSeats = Object.values(groups).reduce(
+    (sum, group) => sum + group,
+    0,
+  );
 
   let circleRadius =
     scale / Math.sqrt(totalSeats, 2) - (scale * 1.25) / totalSeats + 1 / scale;
@@ -20,13 +23,13 @@ export default function createChart(scale, groups) {
   const groupSeats = [];
   let seatsCounted = 0;
 
-  groups.forEach((group) => {
+  Object.entries(groups).forEach(([label, numSeats]) => {
     groupSeats.push({
-      label: group.label,
-      seats: orderedSeats.slice(seatsCounted, seatsCounted + group.numSeats),
+      label: label,
+      seats: orderedSeats.slice(seatsCounted, seatsCounted + numSeats),
     });
 
-    seatsCounted += group.numSeats;
+    seatsCounted += numSeats;
   });
 
   return { groups: groupSeats, radius: circleRadius };
@@ -110,4 +113,3 @@ function createNegateArray(seatsInRows, targetTotalSeats) {
 function sumArray(array) {
   return array.reduce((a, b) => a + b, 0);
 }
-
